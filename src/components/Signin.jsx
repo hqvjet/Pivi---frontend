@@ -58,7 +58,10 @@ export default function SignIn() {
             postDataForSignIn(data.get('un'), data.get('password'))
                 .then(res => {
                     localStorage.setItem('PiviUser', JSON.stringify(res))
-                    window.location.href = '/'
+                    if(res.role === 'user')
+                        window.location.href = '/'
+                    else
+                        window.location.href = '/1423asqwf3'
                 })
                 .catch(err => setAlert(err.response.data.error))
 

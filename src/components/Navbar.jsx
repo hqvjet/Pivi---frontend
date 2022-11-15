@@ -11,8 +11,8 @@ const Navbar = () => {
     return (
         <Stack direction="row" alignItems="center" p={2}
                sx={{
-                   position: 'sticky', background: '#000', top: 0, justifyContent: "space-between",
-                   borderStyle: 'none none solid none', borderColor: 'gray', height: '40px'
+                   position: 'sticky', background: 'rgba(0, 0, 0, 0.9)', top: 0, justifyContent: "space-between",
+                   borderStyle: 'none none solid none', borderColor: 'gray', height: '40px', zIndex: 10
                }}>
             <Link to="/" style={{display: "flex", alignItems: "center"}}>
                 <img src={logo} alt="logo" height={45}/>

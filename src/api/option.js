@@ -37,4 +37,13 @@ export const Authorization = axios.create({
     params: {
 
     }
+});
+
+//Video
+
+export const VideoConfig = axios.create({
+    baseURL: '/api/v1/videos',
+    headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem('PiviUser')).access}`
+    }
 })
