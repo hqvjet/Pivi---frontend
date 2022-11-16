@@ -1,0 +1,55 @@
+{
+  "post Method": {
+    "user": {
+      "postVideo": {
+        "id": "dumadarkqua",
+        "url": "./resources/videos/fmdkfmsfd.mp4",
+        "title": "2 trieu",
+        "description": "con trai lay cua me 2 trieu di choi va cai ket",
+        "hashtagOption": "Entertainment"
+      },
+      "deleteMyselfVideo": {
+        "video_id": "dejnjfdf"
+      },
+      "likeVideo": {
+        "video_id": "fdmkfmkfsd"
+      },
+      "dislikeVideo": {
+        "video_id": "kfdmdkfmsfdm"
+      },
+      "commentOnVideo": {
+        "video_id": "dskdmdds",
+        "content": "video nhu long den ong sao lap lanh"
+      },
+      "reportVideo": {
+        "video_id": "skdmkmfs",
+        "content": "nhu l"
+      }
+    },
+    "admin": {
+      "deleteVideoHasReported": {
+        "video_id": "dkmkmfds"
+      },
+      "banUser": {
+        "user_id": "sdmkfmfsm"
+      },
+      "statistic": [
+        {
+          "date": "31/12/2999",
+          "video_count": "1",
+          "user_count": "2",
+          "comment_count": "3"
+        },
+        {
+          "date": "01/01/3000",
+          "video_count": "1",
+          "user_count": "2",
+          "comment_count": "3"
+        },
+        {
+        }
+      ]
+    }
+  }
+}
+

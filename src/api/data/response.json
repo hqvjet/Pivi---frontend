@@ -1,0 +1,61 @@
+{
+  "method": "post",
+  "login": {
+    "user": {
+      "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2ODYwMTIwNywianRpIjoiMWRkYTkyMGUtOTcwYi00ZWY5LWJmNTktMjk2N2ZiNWJhODJiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjhhMDhkNGEwLTlkNGUtNDU5Yy05MzAwLWJjZDc0NDJiMzdjNSIsIm5iZiI6MTY2ODYwMTIwNywiZXhwIjoxNjY4Njg3NjA3fQ.LTv4nVgZwHAalOlI5OihJAoz3l6H9AGRlPwxy3sj9-s",
+      "email": "abcd@gmail.com",
+      "id": "8a08d4a0-9d4e-459c-9300-bcd7442b37c5",
+      "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2ODYwMTIwNywianRpIjoiYjdiYTVjN2YtYmEwMi00MWU1LThkOTMtNjA5Njc4ZGI2YzAxIiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiI4YTA4ZDRhMC05ZDRlLTQ1OWMtOTMwMC1iY2Q3NDQyYjM3YzUiLCJuYmYiOjE2Njg2MDEyMDcsImV4cCI6MTY3MTE5MzIwN30.h4nVJDk7WkpNa-Wwl0_lDeYPvpg3xtZ290Dmk8nVAZI",
+      "role": "admin",
+      "username": "admin"
+    }
+  },
+  "register": {
+    "user": {
+      "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2ODYwMTIwNywianRpIjoiMWRkYTkyMGUtOTcwYi00ZWY5LWJmNTktMjk2N2ZiNWJhODJiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjhhMDhkNGEwLTlkNGUtNDU5Yy05MzAwLWJjZDc0NDJiMzdjNSIsIm5iZiI6MTY2ODYwMTIwNywiZXhwIjoxNjY4Njg3NjA3fQ.LTv4nVgZwHAalOlI5OihJAoz3l6H9AGRlPwxy3sj9-s",
+      "email": "abcd@gmail.com",
+      "id": "8a08d4a0-9d4e-459c-9300-bcd7442b37c5",
+      "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2ODYwMTIwNywianRpIjoiYjdiYTVjN2YtYmEwMi00MWU1LThkOTMtNjA5Njc4ZGI2YzAxIiwidHlwZSI6InJlZnJlc2giLCJzdWIiOiI4YTA4ZDRhMC05ZDRlLTQ1OWMtOTMwMC1iY2Q3NDQyYjM3YzUiLCJuYmYiOjE2Njg2MDEyMDcsImV4cCI6MTY3MTE5MzIwN30.h4nVJDk7WkpNa-Wwl0_lDeYPvpg3xtZ290Dmk8nVAZI",
+      "role": "admin",
+      "username": "admin"
+    }
+  },
+  "searchVideos": [
+    {
+      "id": "mkmdkmfd",
+      "title": "dap da o con lon",
+      "description": "video ke ve chang trai chuyen dap da",
+      "like": "999",
+      "comment": "0",
+      "watch": "1",
+      "owned": "username",
+      "created_at": "dmkdfmdf"
+    },
+    {
+      "id": "mkmdkmffdf",
+      "title": "dap da o quang tri",
+      "description": "video ke ve chang trai chuyen dap da",
+      "like": "999",
+      "comment": "0",
+      "watch": "999999999",
+      "owned": "toi la ai",
+      "created_at": "fdkfnfjndf"
+    },
+    {
+    }
+  ],
+  "LoadCommentOfVideo": [
+    {
+      "id": "fjdnfjnfs",
+      "content": "dap hay qua",
+      "created_at": "dkmkjfms"
+    },
+    {
+      "id": "ffdfddjdnfjnfs",
+      "content": "dep trai lam",
+      "created_at": "dkmkjfmsfdfd"
+    },
+    {
+    }
+  ]
+}
