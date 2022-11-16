@@ -1,6 +1,5 @@
 import React from "react"
 import {Button, Fade, Menu, MenuItem, Stack} from "@mui/material";
-import PersonalVideoIcon from '@mui/icons-material/PersonalVideo';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useEffect, useState} from "react";
 
@@ -58,7 +57,6 @@ export default function UserBar(props) {
                     textAlign: 'center'
                 }}
             >
-                <Button startIcon={<PersonalVideoIcon/>}>Storage</Button>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <Button startIcon={<LogoutIcon/>} onClick={logout}>Logout</Button>
             </Menu>
