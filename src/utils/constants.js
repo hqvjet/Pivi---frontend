@@ -11,10 +11,12 @@ import {PersonalVideo} from "@mui/icons-material";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import VideoSettingsIcon from '@mui/icons-material/VideoSettings';
+import UploadIcon from '@mui/icons-material/Upload';
 
 export const logo = 'https://i.ibb.co/s9Qys2j/logo.png';
 
 export const categories = [
+    {name: 'Upload Video', icon: <UploadIcon/>},
     {name: 'Your Storage', icon: <PersonalVideo/>},
     {name: 'Music', icon: <MusicNoteIcon/>},
     {name: 'Education', icon: <SchoolIcon/>,},
