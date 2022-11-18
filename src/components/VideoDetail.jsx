@@ -9,7 +9,6 @@ import {Videos, Loader} from "./index";
 import {getRelatedVideo, getVideoDetails} from "../api/Youtube";
 import {Fragment} from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import {likeVideo} from "../api/Video";
 import ChatField from "./ChatField";
 
 const VideoDetail = () => {
@@ -44,12 +43,7 @@ const VideoDetail = () => {
     )
 
     const like = () => {
-        likeVideo(id)
-            .then(res => {
-                setAlert(res.message)
-                setHeartColor('orangered')
-                setOpen(true)
-            })
+
         // .catch(() => console.log('err'))
     }
 
