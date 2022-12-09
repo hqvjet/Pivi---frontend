@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import CopyRight from "./CopyRight";
-import {postDataForSignUp} from "../api/SignUp";
+import {postDataForSignUp} from "../api/public/SignUp";
 import {IconButton, Snackbar} from "@mui/material";
 import {Fragment, useEffect, useState} from "react";
 import CloseIcon from '@mui/icons-material/Close';
