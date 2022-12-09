@@ -22,7 +22,7 @@ export default function Upload() {
                         required
                         id="title"
                         name="title"
-                        label="Video Title"
+                        label="Video's Title"
                         fullWidth
                         autoComplete="off"
                         variant="standard"
@@ -48,15 +48,13 @@ export default function Upload() {
                 </Grid>
 
                 <Grid item xs={12} sm={12}>
-                    {/*<Textarea*/}
-                    {/*    required*/}
-                    {/*    id="description"*/}
-                    {/*    name="description"*/}
-                    {/*    label="Video Description"*/}
-                    {/*    fullWidth*/}
-                    {/*    autoComplete="off"*/}
-                    {/*    variant="standard"*/}
-                    {/*/>*/}
+                    <TextField
+                        fullWidth
+                        id="description"
+                        label="Video's Description"
+                        multiline
+                        maxRows={Infinity}
+                    />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Button
