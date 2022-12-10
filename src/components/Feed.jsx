@@ -4,7 +4,8 @@ import {Box, Stack, Typography} from "@mui/material";
 import {Videos, Sidebar} from "./index";
 import {getSnippetFromAPI} from "../api/Youtube";
 import {categories, videoCat} from "../utils/constants";
-import Upload from "./UploadVideo/Upload";
+import Upload from "./Upload";
+import Storage from "./Storage";
 
 const Feed = () => {
     const [selectedCategory, setSelectedCategory] = useState("New");
@@ -59,7 +60,7 @@ const Feed = () => {
                     <Upload/>
                 )}
                 {storage && (
-                    <></>
+                    <Storage/>
                 )}
             </Box>
         </Stack>

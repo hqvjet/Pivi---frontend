@@ -29,7 +29,9 @@
       "comment": "0",
       "watched": "1",
       "owned": "username",
-      "created_at": "dmkdfmdf"
+      "created_at": "dmkdfmdf",
+      "video_thumbnail": "/resources/images/fdkffsdmf",
+      "video_direction": "/resources/videos/fmkmfms.mp4"
     },
     {
       "id": "mkmdkmffdf",
@@ -66,7 +68,9 @@
       "liked": "999",
       "watched": "1",
       "owned": "username",
-      "created_at": "1/1/1"
+      "created_at": "1/1/1",
+      "video_thumbnail": "/resources/images/sasas",
+      "video_direction": "/resources/videos/sasas.mp4"
     },
     {
       "id": "2",
@@ -75,7 +79,9 @@
       "liked": "999",
       "watched": "1",
       "owned": "username2",
-      "created_at": "1/1/1"
+      "created_at": "1/1/1",
+      "video_thumbnail": "/resources/images/fdkffsdmf",
+      "video_direction": "/resources/videos/fmkmfms.mp4"
     },
     {
 
