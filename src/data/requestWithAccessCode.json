@@ -27,6 +27,20 @@
       }
     },
     "admin": {
+      "getReportedUsersData": [
+        {
+          "report_id": "1",
+          "status": "pending",
+          "accuser": "user1",
+          "accused": "user2",
+          "date": "1/1/1",
+          "reason": "report user là report vì cmt, luôn luôn",
+          "cmt": "do thang nao report tao"
+        },
+        {
+
+        }
+      ],
       "deleteVideoHasReported": {
         "video_id": "dkmkmfds"
       },
