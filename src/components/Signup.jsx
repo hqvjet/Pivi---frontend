@@ -110,7 +110,7 @@ export default function SignUp() {
                                     required
                                     fullWidth
                                     id="un"
-                                    label="Report Name"
+                                    label="User Name"
                                     name="username"
                                     autoComplete="username"
                                 />
