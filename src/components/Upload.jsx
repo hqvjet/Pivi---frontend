@@ -6,6 +6,8 @@ import Checkbox from '@mui/material/Checkbox';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Box, Button, FormControl, InputLabel, MenuItem, Select, Typography} from "@mui/material";
 import {useState} from "react";
+import {USER} from "../utils/constants";
+import {uploadVideo} from "../api/user/Video";
 
 const theme = createTheme({
     palette: {
@@ -18,6 +20,7 @@ export default function Upload() {
     const [fileName, setFileName] = useState('')
     const [category, setCategory] = useState('')
     const [display, setDisplay] = useState('none')
+    const [file, setFile] = useState({})
 
     const categorySelected = e => {
         setCategory(e.target.value)
@@ -31,7 +34,11 @@ export default function Upload() {
     const handleSubmit = e => {
         e.preventDefault()
         const data = new FormData(e.currentTarget)
-        console.log('lmao')
+        data.append('user_id', USER().id)
+        data.append('video_file', file)
+
+        uploadVideo(data)
+            .then(r => console.log(r.data))
     }
 
     return (
@@ -54,31 +61,13 @@ export default function Upload() {
                         variant="standard"
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                    <FormControl sx={{
-                        width: '250px',
-                        color: '#9E9E9E'
-                    }}>
-                        <InputLabel id="hashtag-label">Category</InputLabel>
-                        <Select
-                            labelId="hashtag-label"
-                            id="hashtag"
-                            value={category}
-                            label="Category"
-                            onChange={categorySelected}
-                        >
-                            <MenuItem value='Entertainment'>Entertainment</MenuItem>
-                            <MenuItem value='Music'>Music</MenuItem>
-                            <MenuItem value='Gaming'>Gaming</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
 
                 <Grid item xs={12} sm={12}>
                     <TextField
                         fullWidth
                         id="description"
                         label="Video's Description"
+                        name='description'
                         multiline
                         maxRows={Infinity}
                     />
@@ -94,6 +83,7 @@ export default function Upload() {
                             hidden
                             accept='.mp4'
                             id='fileInput'
+                            name='file'
                             onChange={fileChanged}
                         />
                     </Button>
@@ -109,12 +99,11 @@ export default function Upload() {
                         label="By Clicking submit you agree with our TERMS AND CONDITIONS"
                     />
                 </Grid>
+
                 <Grid item xs={12}>
                     <Button
                         type="submit"
                         variant="contained"
-                        component='label'
-                        xs={12} sm={6}
                         item
                     >Submit</Button>
                 </Grid>
