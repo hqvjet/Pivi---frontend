@@ -28,17 +28,18 @@ export default function Upload() {
 
     const fileChanged = e => {
         setFileName(e.target.files[0].name)
+        setFile(e.target.files[0])
         setDisplay('block')
     }
 
     const handleSubmit = e => {
         e.preventDefault()
         const data = new FormData(e.currentTarget)
-        data.append('user_id', USER().id)
-        data.append('video_file', file)
+        data.append('file', file)
 
         uploadVideo(data)
             .then(r => console.log(r.data))
+        console.log(data.get('file'))
     }
 
     return (
