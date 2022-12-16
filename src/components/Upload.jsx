@@ -4,9 +4,8 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Box, Button, FormControl, InputLabel, MenuItem, Select, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 import {useState} from "react";
-import {USER} from "../utils/constants";
 import {uploadVideo} from "../api/user/Video";
 
 const theme = createTheme({
@@ -17,29 +16,34 @@ const theme = createTheme({
 
 export default function Upload() {
 
-    const [fileName, setFileName] = useState('')
-    const [category, setCategory] = useState('')
+    const [videoName, setVideoName] = useState('')
+    const [thumbnailName, setThumbnailName] = useState('')
     const [display, setDisplay] = useState('none')
-    const [file, setFile] = useState({})
+    const [video, setVideo] = useState({})
+    const [thumbnail, setThumbnail] = useState({})
 
-    const categorySelected = e => {
-        setCategory(e.target.value)
+    const videoChanged = e => {
+        setVideoName(e.target.files[0].name)
+        setVideo(e.target.files[0])
+        setDisplay('block')
+
     }
 
-    const fileChanged = e => {
-        setFileName(e.target.files[0].name)
-        setFile(e.target.files[0])
+    const thumbnailChanged = e => {
+        setThumbnailName(e.target.files[0].name)
+        setThumbnail(e.target.files[0])
         setDisplay('block')
     }
 
     const handleSubmit = e => {
         e.preventDefault()
         const data = new FormData(e.currentTarget)
-        data.append('file', file)
+        data.append('video', video)
+        data.append('thumbnail', thumbnail)
 
         uploadVideo(data)
             .then(r => console.log(r.data))
-        console.log(data.get('file'))
+            .catch(err => console.log(err.response.data))
     }
 
     return (
@@ -78,19 +82,40 @@ export default function Upload() {
                         variant="contained"
                         component="label"
                     >
-                        Upload File
+                        Upload Video
                         <input
                             type="file"
                             hidden
                             accept='.mp4'
-                            id='fileInput'
-                            name='file'
-                            onChange={fileChanged}
+                            id='video'
+                            name='video'
+                            onChange={videoChanged}
                         />
                     </Button>
                     <Box marginTop={5}>
                         <Typography variant='h6' id='uploaded' display={display}>
-                            {fileName}
+                            {videoName}
+                        </Typography>
+                    </Box>
+                </Grid>
+                <Grid item xs={12} sm={12}>
+                    <Button
+                        variant="contained"
+                        component="label"
+                    >
+                        Upload Thumbnail
+                        <input
+                            type="file"
+                            hidden
+                            accept='.jpg,.png'
+                            id='thumbnail'
+                            name='thumbnail'
+                            onChange={thumbnailChanged}
+                        />
+                    </Button>
+                    <Box marginTop={5}>
+                        <Typography variant='h6' id='uploaded' display={display}>
+                            {thumbnailName}
                         </Typography>
                     </Box>
                 </Grid>

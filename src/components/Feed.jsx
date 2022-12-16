@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Box, Stack, Typography} from "@mui/material";
 
 import {Videos, Sidebar} from "./index";
-import {getSnippetFromAPI} from "../api/Youtube";
 import {categories, videoCat} from "../utils/constants";
 import Upload from "./Upload";
 import Storage from "./Storage";
@@ -18,11 +17,7 @@ const Feed = () => {
         setVideos(null);
 
         if (selectedCategory !== categories[0].name && selectedCategory !== categories[1].name) {
-            getSnippetFromAPI(videoCat.VIDEO, selectedCategory)
-                .then((data) => setVideos(data))
-            setSearch(true)
-            setStorage(false)
-            setUpload(false)
+            //fetch video
         }
 
         else if(selectedCategory === categories[0].name) {
@@ -49,20 +44,20 @@ const Feed = () => {
                 </Typography>
             </Box>
 
-            <Box p={2} sx={{overflowY: "auto", height: "90vh", flex: 2}}>
-                <Typography variant="h4" fontWeight="bold" mb={2} sx={{color: "white"}}>
-                    {selectedCategory} <span style={{color: "#FC1503"}}>videos</span>
-                </Typography>
-                {search && (
-                    <Videos videos={videos}/>
-                )}
-                {upload && (
-                    <Upload/>
-                )}
-                {storage && (
-                    <Storage/>
-                )}
-            </Box>
+            {/*<Box p={2} sx={{overflowY: "auto", height: "90vh", flex: 2}}>*/}
+            {/*    <Typography variant="h4" fontWeight="bold" mb={2} sx={{color: "white"}}>*/}
+            {/*        {selectedCategory} <span style={{color: "#FC1503"}}>videos</span>*/}
+            {/*    </Typography>*/}
+            {/*    {search && (*/}
+            {/*        <Videos videos={videos}/>*/}
+            {/*    )}*/}
+            {/*    {upload && (*/}
+            {/*        <Upload/>*/}
+            {/*    )}*/}
+            {/*    {storage && (*/}
+            {/*        <Storage/>*/}
+            {/*    )}*/}
+            {/*</Box>*/}
         </Stack>
     );
 };

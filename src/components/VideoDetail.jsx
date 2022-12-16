@@ -6,10 +6,10 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import {Videos, Loader} from "./index";
-import {getRelatedVideo, getVideoDetails} from "../api/Youtube";
 import {Fragment} from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import ChatField from "./ChatField";
+import {getVideoInformation} from "../api/public/Video";
 
 const VideoDetail = () => {
     const [videoDetail, setVideoDetail] = useState(null);
@@ -18,16 +18,14 @@ const VideoDetail = () => {
     const [alert, setAlert] = useState('')
     const [heartColor, setHeartColor] = useState('white')
     const {id} = useParams();
+    console.log(id)
 
     useEffect(() => {
-        getVideoDetails(id)
-            .then((data) => setVideoDetail(data[0]))
-
-        getRelatedVideo(id)
-            .then((data) => setVideos(data))
+        getVideoInformation(id)
+            .then(r => setVideoDetail(r.data))
     }, [id]);
 
-    if (!videoDetail?.snippet) return <Loader/>;
+    if (!videoDetail) return <Loader/>;
 
     const action = (
         <Fragment>
@@ -47,8 +45,6 @@ const VideoDetail = () => {
         // .catch(() => console.log('err'))
     }
 
-    const {snippet: {title, channelId, channelTitle}, statistics: {viewCount, likeCount}} = videoDetail;
-
     return (
         <Box minHeight="95vh">
             <Stack direction={{xs: "column", md: "row"}}>
@@ -67,18 +63,23 @@ const VideoDetail = () => {
                                 onClose={() => setOpen(false)}
                                 action={action}
                             />
-                            <ReactPlayer url={`https://www.youtube.com/watch?v=${id}`} className="react-player" controls
-                                         playing={true}/>
+                            <video
+                                className='react-player'
+                                autoPlay={false}
+                                muted={true}
+                                controls>
+                                <source
+                                    src={`http://localhost:8070/api/v1/videos/get-video/d5ca696a-9b97-4b98-b035-3d507e3c5cf4`}
+                                    type='video/mp4'/>
+                            </video>
                             <Typography color="#fff" variant="h5" fontWeight="bold" p={2}>
-                                {title}
+                                {videoDetail.title}
                             </Typography>
                             <Stack direction="row" justifyContent="space-between" sx={{color: "#fff"}} py={1} px={2}>
-                                <Link to={`/channel/${channelId}`}>
-                                    <Typography variant={{sm: "subtitle1", md: 'h6'}} color="#fff">
-                                        {channelTitle}
-                                        <CheckCircleIcon sx={{fontSize: "12px", color: "gray", ml: "5px"}}/>
-                                    </Typography>
-                                </Link>
+                                <Typography variant={{sm: "subtitle1", md: 'h6'}} color="#fff">
+                                    {videoDetail.owner}
+                                    <CheckCircleIcon sx={{fontSize: "12px", color: "gray", ml: "5px"}}/>
+                                </Typography>
                                 <Stack direction="row" gap="20px" alignItems="center">
                                     <FavoriteIcon
                                         sx={{
@@ -90,10 +91,10 @@ const VideoDetail = () => {
                                         onClick={like}
                                     />
                                     <Typography variant="body1" sx={{opacity: 0.7}}>
-                                        {parseInt(viewCount).toLocaleString()} views
+                                        {parseInt(videoDetail.watch).toLocaleString()} views
                                     </Typography>
                                     <Typography variant="body1" sx={{opacity: 0.7}}>
-                                        {parseInt(likeCount).toLocaleString()} likes
+                                        {parseInt(videoDetail.like).toLocaleString()} likes
                                     </Typography>
                                 </Stack>
                             </Stack>
