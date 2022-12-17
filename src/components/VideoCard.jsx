@@ -3,8 +3,6 @@ import {Link} from "react-router-dom";
 import {Typography, Card, CardContent, CardMedia} from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-import {demoThumbnailUrl, demoVideoUrl, demoVideoTitle, demoChannelUrl, demoChannelTitle} from "../utils/constants";
-
 const VideoCard = props => (
     <Card sx={{
         width: {xs: '100%', sm: '358px', md: "320px",},
@@ -18,13 +16,13 @@ const VideoCard = props => (
             />
         </Link>
         <CardContent sx={{backgroundColor: "transparent", height: '106px', borderRadius: '10px'}}>
-            <Link to={props.video.id ? `/video/${props.video.id}` : demoVideoUrl}>
+            <Link to={`/video/${props.video.id}`}>
                 <Typography variant="subtitle1" fontWeight="bold" color="#FFF">
-                    {props.video?.title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
+                    {props.video?.title.slice(0, 60)}
                 </Typography>
             </Link>
             <Typography variant="subtitle2" color="gray">
-                {props.video?.owner || demoChannelTitle}
+                {props.video?.owner}
                 <CheckCircleIcon sx={{fontSize: "12px", color: "gray", ml: "5px"}}/>
             </Typography>
         </CardContent>

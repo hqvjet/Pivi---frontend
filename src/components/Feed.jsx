@@ -6,8 +6,6 @@ import {categories, videoCat} from "../utils/constants";
 import Upload from "./Upload";
 import Storage from "./Storage";
 import {getAllVideo} from "../api/public/Video";
-import {Fragment} from "react";
-import CloseIcon from "@mui/icons-material/Close";
 
 const Feed = () => {
     const [selectedCategory, setSelectedCategory] = useState("New");
@@ -19,10 +17,13 @@ const Feed = () => {
     useEffect(() => {
         setVideos(null);
 
-        if (selectedCategory !== categories[0].name && selectedCategory !== categories[1].name) {
+        if (selectedCategory === categories[2].name) {
             getAllVideo()
                 .then(r => {
                     setVideos(r.data.data)
+                    setSearch(true)
+                    setUpload(false)
+                    setStorage(false)
                 })
         }
 
@@ -53,7 +54,7 @@ const Feed = () => {
 
             <Box p={2} sx={{overflowY: "auto", height: "90vh", flex: 2}}>
                 <Typography variant="h4" fontWeight="bold" mb={2} sx={{color: "white"}}>
-                    {selectedCategory} <span style={{color: "#FC1503"}}>videos</span>
+                    {selectedCategory}
                 </Typography>
                 {search && (
                     <Videos videos={videos}/>

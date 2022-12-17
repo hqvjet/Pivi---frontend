@@ -33,7 +33,8 @@ export default function ChatField(props) {
                     onKeyDown={comment}/>
                 <Stack direction="column" sx={{color: 'white'}}>
                     {props.comments.map((item, idx) => (
-                        <Stack key={idx}>
+                        <Stack key={idx} direction='column'>
+                            <Typography><b>{item.user_id}</b></Typography>
                             <Typography>{item.content}</Typography>
                         </Stack>
                     ))}
