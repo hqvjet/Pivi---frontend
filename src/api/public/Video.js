@@ -7,3 +7,7 @@ export async function getSearchResult(keyword) {
 export async function getVideoInformation(id) {
     return PUBLIC_VIDEO.get(`/video/${id}`)
 }
+
+export async function getAllVideo() {
+    return PUBLIC_VIDEO.get('/all-videos')
+}

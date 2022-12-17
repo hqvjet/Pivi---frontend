@@ -9,7 +9,8 @@ import {Videos, Loader} from "./index";
 import {Fragment} from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import ChatField from "./ChatField";
-import {getVideoInformation} from "../api/public/Video";
+import {getAllVideo, getVideoInformation} from "../api/public/Video";
+import {likeVideo} from "../api/user/Video";
 
 const VideoDetail = () => {
     const [videoDetail, setVideoDetail] = useState(null);
@@ -17,12 +18,19 @@ const VideoDetail = () => {
     const [open, setOpen] = useState(false)
     const [alert, setAlert] = useState('')
     const [heartColor, setHeartColor] = useState('white')
+    const [comment, setComment] = useState([])
     const {id} = useParams();
     console.log(id)
 
     useEffect(() => {
         getVideoInformation(id)
-            .then(r => setVideoDetail(r.data))
+            .then(r => {
+                setComment(r.data.comment)
+                r.data.comment = r.data.comment.length
+                setVideoDetail(r.data)
+            })
+        getAllVideo()
+            .then(r => setVideos(r.data.data))
     }, [id]);
 
     if (!videoDetail) return <Loader/>;
@@ -41,8 +49,15 @@ const VideoDetail = () => {
     )
 
     const like = () => {
-
-        // .catch(() => console.log('err'))
+        likeVideo(id)
+            .then(r => {
+                setAlert(r.data.message)
+                setOpen(true)
+            })
+            .catch(err => {
+                setAlert(err.data.message)
+                setOpen(true)
+            })
     }
 
     return (
@@ -62,20 +77,19 @@ const VideoDetail = () => {
                                 message={alert}
                                 onClose={() => setOpen(false)}
                                 action={action}
+
                             />
-                            <video
+                            <ReactPlayer
                                 className='react-player'
-                                autoPlay={false}
-                                muted={true}
-                                controls>
-                                <source
-                                    src={`http://localhost:8070/api/v1/videos/get-video/d5ca696a-9b97-4b98-b035-3d507e3c5cf4`}
-                                    type='video/mp4'/>
-                            </video>
+                                controls={true}
+                                url={`http://localhost:8070/api/v1/videos/get-video/${id}`}
+                                playing={true}
+                            />
                             <Typography color="#fff" variant="h5" fontWeight="bold" p={2}>
                                 {videoDetail.title}
                             </Typography>
-                            <Stack direction="row" justifyContent="space-between" sx={{color: "#fff"}} py={1} px={2}>
+                            <Stack direction="row" justifyContent="space-between" sx={{color: "#fff"}} py={1}
+                                   px={2}>
                                 <Typography variant={{sm: "subtitle1", md: 'h6'}} color="#fff">
                                     {videoDetail.owner}
                                     <CheckCircleIcon sx={{fontSize: "12px", color: "gray", ml: "5px"}}/>
@@ -100,7 +114,7 @@ const VideoDetail = () => {
                             </Stack>
                         </Box>
                         <Box flex={1} marginTop={10}>
-                            <ChatField comments={3}/>
+                            <ChatField comments={comment} setAlert={setAlert} setOpen={setOpen}/>
                         </Box>
                     </Box>
                 </Stack>

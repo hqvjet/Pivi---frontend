@@ -4,9 +4,11 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Box, Button, Typography} from "@mui/material";
+import {Box, Button, IconButton, Snackbar, Typography} from "@mui/material";
 import {useState} from "react";
 import {uploadVideo} from "../api/user/Video";
+import {Fragment} from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 const theme = createTheme({
     palette: {
@@ -21,6 +23,21 @@ export default function Upload() {
     const [display, setDisplay] = useState('none')
     const [video, setVideo] = useState({})
     const [thumbnail, setThumbnail] = useState({})
+    const [open, setOpen] = useState(false)
+    const [alert, setAlert] = useState('')
+
+    const action = (
+        <Fragment>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={() => setOpen(false)}
+            >
+                <CloseIcon fontSize="small"/>
+            </IconButton>
+        </Fragment>
+    )
 
     const videoChanged = e => {
         setVideoName(e.target.files[0].name)
@@ -42,12 +59,22 @@ export default function Upload() {
         data.append('thumbnail', thumbnail)
 
         uploadVideo(data)
-            .then(r => console.log(r.data))
+            .then(r => {
+                setAlert(r.data.message)
+                setOpen(true)
+            })
             .catch(err => console.log(err.response.data))
     }
 
     return (
         <ThemeProvider theme={theme}>
+            <Snackbar
+                open={open}
+                autoHideDuration={5000}
+                message={alert}
+                onClose={() => setOpen(false)}
+                action={action}
+            />
             <Grid
                 component='form'
                 onSubmit={handleSubmit}
