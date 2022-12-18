@@ -34,9 +34,11 @@ export default function Storage() {
 
     const [value, setValue] = useState(0);
     const [video, setVideo] = useState([])
+    const [loading, setLoading] =useState(false)
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        setLoading(false)
     };
 
     useEffect(() => {
@@ -44,11 +46,14 @@ export default function Storage() {
             getMyVideos()
                 .then(r => {
                     setVideo(r.data.videos)
-                    console.log(r.data.videos)
+                    setLoading(true)
                 })
         else
             getLikedVideos()
-                .then(r => setVideo(r.data.videos))
+                .then(r => {
+                    setVideo(r.data.videos)
+                    setLoading(true)
+                })
     }, [value])
 
     function dynamicProps(index) {
@@ -63,23 +68,29 @@ export default function Storage() {
     }}
                  flexDirection='column'
     >
-        {video.length === 0 && (
-            <Typography variant='h6'>
-                You don't have any {value === 1 ? 'liked ' : ''}video
-            </Typography>)}
-        {video.length !== 0 && (
             <Box>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="My Video" {...dynamicProps(0)} />
                     <Tab label="Liked Video" {...dynamicProps(1)} />
                 </Tabs>
-                <TabPanel value={value} index={0}>
-                    <Videos videos={video}/>
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <Videos videos={video}/>
-                </TabPanel>
-            </Box>)}
+                {loading && (
+                    <>
+                        <TabPanel value={value} index={0}>
+                            {video.length === 0 ? (
+                                <Typography variant='h6'>
+                                    You don't have any {value === 1 ? 'liked ' : ''}video
+                                </Typography>) : <Videos videos={video} my={true}/>}
+                        </TabPanel>
+                        <TabPanel value={value} index={1}>
+                            {video.length === 0 ? (
+                                <Typography variant='h6'>
+                                    You don't have any {value === 1 ? 'liked ' : ''}video
+                                </Typography>) : <Videos videos={video} liked={true}/>}
+                        </TabPanel>
+                    </>
+                )}
+
+            </Box>
     </Box>)
 
 }

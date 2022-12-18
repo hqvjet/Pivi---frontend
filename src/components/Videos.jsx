@@ -10,7 +10,7 @@ const Videos = props => {
     <Stack direction={!props.direction ? "row" : props.direction} flexWrap="wrap" justifyContent="start" alignItems="start" gap={2}>
       {props.videos.map((item, idx) => (
         <Box key={idx}>
-          {item.id && <VideoCard video={item} /> }
+          {item.id && <VideoCard video={item} liked={props.liked} my={props.my}/> }
         </Box>
       ))}
     </Stack>
