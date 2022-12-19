@@ -1,10 +1,11 @@
 import React from "react";
-import { Stack, Box } from "@mui/material";
+import {Stack, Box, Typography} from "@mui/material";
 
 import { Loader, VideoCard } from "./index";
 
 const Videos = props => {
-  if(!props.videos?.length) return <Loader />;
+  if(!props?.videos) return <Loader />;
+  else if (props.videos.length === 0) return <Typography sx={{color: 'gray'}} variant='h5'>No result</Typography>
   
   return (
     <Stack direction={!props.direction ? "row" : props.direction} flexWrap="wrap" justifyContent="start" alignItems="start" gap={2}>

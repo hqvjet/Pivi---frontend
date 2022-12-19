@@ -26,7 +26,7 @@ const VideoDetail = () => {
     const {id} = useParams();
     const [openBackdrop, setOpenBackdrop] = useState(false)
     const [openBackdrop2, setOpenBackdrop2] = useState(false)
-    const user = JSON.parse(localStorage.PiviUser)
+    const user = JSON.parse(localStorage.getItem('PiviUser'))
 
     useEffect(() => {
         getVideoInformation(id)
@@ -61,8 +61,12 @@ const VideoDetail = () => {
                 setOpen(true)
             })
             .catch(err => {
-                setAlert(err.response.data.message)
-                setOpen(true)
+                if(!user)
+                    window.location.href='/sign-in'
+                else {
+                    setAlert(err.response.data.message)
+                    setOpen(true)
+                }
             })
     }
 
@@ -223,7 +227,7 @@ const VideoDetail = () => {
                                         }}
                                         onClick={like}
                                     />
-                                    {videoDetail?.owner === user.username && (
+                                    {videoDetail?.owner === user?.username && (
                                         <UpdateIcon
                                             sx={{
                                                 color: 'white',
@@ -234,7 +238,7 @@ const VideoDetail = () => {
                                             onClick={() => setOpenBackdrop2(true)}
                                         />
                                     )}
-                                    {videoDetail?.owner === user.username && (
+                                    {videoDetail?.owner === user?.username && (
                                         <DeleteForeverIcon
                                             sx={{
                                                 color: 'red',

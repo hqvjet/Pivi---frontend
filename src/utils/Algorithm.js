@@ -82,18 +82,6 @@ export const convertDateToDay = date => {
         const sub = have.day - given.day
         return `${sub} day${sub !== 1 ? 's' : ''} ago`
     }
-    else if(have.hour > given.hour) {
-        const sub = have.hour - given.hour
-        return `${sub} hour${sub !== 1 ? 's' : ''} ago`
-    }
-    else if(have.minute > given.minute) {
-        const sub = have.minute - given.minute
-        return `${sub} minute${sub !== 1 ? 's' : ''} ago`
-    }
-    else if(have.second > given.second) {
-        const sub = have.second - given.second
-        return `${sub} second${sub !== 1 ? 's' : ''} ago`
-    }
     else
-        return 'now'
+        return '0 day ago'
 }
