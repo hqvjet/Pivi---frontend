@@ -19,3 +19,11 @@ export const getMyVideos = async () => {
 export const getLikedVideos = async () => {
     return await VideoConfig.get('/liked')
 }
+
+export const deleteVideo = async video_id => {
+    return await VideoConfig.delete(`/delete/${video_id}`)
+}
+
+export const updateVideo = async (video_id, data) => {
+    return await VideoConfig.patch(`/update/${video_id}`, data)
+}

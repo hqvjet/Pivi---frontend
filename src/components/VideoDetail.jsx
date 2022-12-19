@@ -1,16 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import ReactPlayer from "react-player";
-import {Typography, Box, Stack, Snackbar, IconButton} from "@mui/material";
+import {Typography, Box, Stack, Snackbar, IconButton, Backdrop, Button} from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import UpdateIcon from '@mui/icons-material/Update';
 
 import {Videos, Loader} from "./index";
 import {Fragment} from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import ChatField from "./ChatField";
 import {getAllVideo, getVideoInformation} from "../api/public/Video";
-import {likeVideo} from "../api/user/Video";
+import {deleteVideo, likeVideo, updateVideo} from "../api/user/Video";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 
 const VideoDetail = () => {
     const [videoDetail, setVideoDetail] = useState(null);
@@ -20,7 +24,9 @@ const VideoDetail = () => {
     const [heartColor, setHeartColor] = useState('white')
     const [comment, setComment] = useState([])
     const {id} = useParams();
-    console.log(id)
+    const [openBackdrop, setOpenBackdrop] = useState(false)
+    const [openBackdrop2, setOpenBackdrop2] = useState(false)
+    const user = JSON.parse(localStorage.PiviUser)
 
     useEffect(() => {
         getVideoInformation(id)
@@ -55,13 +61,126 @@ const VideoDetail = () => {
                 setOpen(true)
             })
             .catch(err => {
-                setAlert(err.data.message)
+                setAlert(err.response.data.message)
+                setOpen(true)
+            })
+    }
+
+    const deleteVid = () => {
+        deleteVideo(id)
+            .then(r => {
+                setAlert(r.data.message)
+                setOpen(true)
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500)
+            })
+            .catch(err => {
+                setAlert(err.response.data.detail)
+                setOpen(true)
+            })
+    }
+
+    const updateVid = e => {
+        e.preventDefault()
+        const data = new FormData(e.currentTarget)
+
+        updateVideo(id, {
+            title: data.get('title'),
+            description: data.get('description')
+        })
+            .then(r => {
+                setAlert(r.data.message)
+                setOpen(true)
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1500)
+            })
+            .catch(err => {
+                setAlert(err.response.data.detail)
                 setOpen(true)
             })
     }
 
     return (
         <Box minHeight="95vh">
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={openBackdrop}
+            >
+                <Box
+                    sx={{
+                        width: '500px',
+                        height: '130px',
+                        backgroundColor: '#1C1C1C',
+                        boxShadow: '0 0 20px black',
+                        borderRadius: '5px'
+                    }}
+                >
+                    <Typography variant='h6' textAlign='center' marginTop={1}>Are You Sure To Delete This Video
+                        ?</Typography>
+                    <Typography variant='h6' textAlign='center'>This Video Will Be Removed Permanently</Typography>
+                    <Stack direction='row' justifyContent='space-between' sx={{padding: '10px 50px'}}>
+                        <Button variant='outlined' onClick={() => setOpenBackdrop(false)}>No</Button>
+                        <Button variant='contained' onClick={deleteVid}>Yes</Button>
+                    </Stack>
+                </Box>
+            </Backdrop>
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={openBackdrop2}
+            >
+                <Box
+                    sx={{
+                        width: '500px',
+                        height: '280px',
+                        backgroundColor: '#1C1C1C',
+                        boxShadow: '0 0 20px black',
+                        borderRadius: '5px'
+                    }}
+                >
+                    <Typography variant='h6' textAlign='center' marginTop={1}>Update Video Form</Typography>
+                    <Grid
+                        component='form'
+                        onSubmit={updateVid}
+                        noValidate
+                        container
+                        spacing={3}
+                        sx={{color: '#9E9E9E'}}
+                        padding={2}
+                    >
+                        <Grid item xs={12} sm={12}>
+                            <TextField
+                                required
+                                id="title"
+                                name="title"
+                                label="Video's Title"
+                                fullWidth
+                                autoComplete="off"
+                                variant="standard"
+                                defaultValue={videoDetail?.title}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} sm={12}>
+                            <TextField
+                                fullWidth
+                                id="description"
+                                label="Video's Description"
+                                name='description'
+                                multiline
+                                maxRows={Infinity}
+                                defaultValue={videoDetail?.description}
+                            />
+                        </Grid>
+                        <Grid item xs={12} justifyContent='space-between' display='flex'>
+                            <Button variant='outlined' onClick={() => setOpenBackdrop2(false)}>Cancel</Button>
+                            <Button variant='contained' type='submit' item>Done</Button>
+                        </Grid>
+                    </Grid>
+
+                </Box>
+            </Backdrop>
             <Stack direction={{xs: "column", md: "row"}}>
                 <Stack direction='column' flex={1}>
                     <Box flex={1}>
@@ -104,6 +223,29 @@ const VideoDetail = () => {
                                         }}
                                         onClick={like}
                                     />
+                                    {videoDetail?.owner === user.username && (
+                                        <UpdateIcon
+                                            sx={{
+                                                color: 'white',
+                                                '&:hover': {
+                                                    cursor: 'pointer'
+                                                }
+                                            }}
+                                            onClick={() => setOpenBackdrop2(true)}
+                                        />
+                                    )}
+                                    {videoDetail?.owner === user.username && (
+                                        <DeleteForeverIcon
+                                            sx={{
+                                                color: 'red',
+                                                '&:hover': {
+                                                    cursor: 'pointer'
+                                                }
+                                            }}
+                                            onClick={() => setOpenBackdrop(true)}
+                                        />
+                                    )}
+
                                     <Typography variant="body1" sx={{opacity: 0.7}}>
                                         {parseInt(videoDetail.watch).toLocaleString()} views
                                     </Typography>

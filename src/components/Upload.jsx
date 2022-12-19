@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Box, Button, IconButton, Snackbar, Typography} from "@mui/material";
+import {Backdrop, Box, Button, IconButton, Snackbar, Typography} from "@mui/material";
 import {useState} from "react";
 import {uploadVideo} from "../api/user/Video";
 import {Fragment} from "react";
@@ -25,6 +25,7 @@ export default function Upload() {
     const [thumbnail, setThumbnail] = useState({})
     const [open, setOpen] = useState(false)
     const [alert, setAlert] = useState('')
+    const [openBackdrop, setOpenBackdrop] = useState(false)
 
     const action = (
         <Fragment>
@@ -43,7 +44,6 @@ export default function Upload() {
         setVideoName(e.target.files[0].name)
         setVideo(e.target.files[0])
         setDisplay('block')
-
     }
 
     const thumbnailChanged = e => {
@@ -75,6 +75,22 @@ export default function Upload() {
                 onClose={() => setOpen(false)}
                 action={action}
             />
+            <Backdrop
+                sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                open={openBackdrop}
+            >
+                <Box
+                    sx={{
+                        width: '500px',
+                        height: '50px',
+                        backgroundColor: '#1C1C1C',
+                        boxShadow: '0 0 20px black',
+                        borderRadius: '5px'
+                    }}
+                >
+                    <Typography variant='h5'>Video's size cannot exceed than 300Kb</Typography>
+                </Box>
+            </Backdrop>
             <Grid
                 component='form'
                 onSubmit={handleSubmit}
