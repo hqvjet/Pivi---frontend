@@ -5,6 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PieChart from "./PieChart";
 import {getAllUser} from "../../api/admin/user";
 import {getAllVideo} from "../../api/public/Video";
+import User from "./User";
 
 export default function DashBoard() {
 
@@ -105,6 +106,9 @@ export default function DashBoard() {
                         <PieChart interact={interact}/>
                     </Box>
                 </Stack>
+                <Box>
+                    <User/>
+                </Box>
 
             </Box>
         </Stack>
