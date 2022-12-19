@@ -3,10 +3,12 @@ import {useEffect, useState} from "react";
 import React from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PieChart from "./PieChart";
+import User from "./User";
 import {getAllUser} from "../../api/admin/user";
 import {getAllVideo} from "../../api/public/Video";
 
 export default function DashBoard() {
+    const [isLoading, setLoading] = useState(false);
 
     const statisticStyles = {
         display: 'flex',
@@ -38,7 +40,7 @@ export default function DashBoard() {
                 setSumOfWatchs(sum)
                 setInteract({like, dislike})
             })
-    }, [])
+    }, [isLoading])
 
     return (
         <Stack sx={{flexDirection: {xs: "column", md: "row"}}}>
@@ -105,6 +107,12 @@ export default function DashBoard() {
                         <PieChart interact={interact}/>
                     </Box>
                 </Stack>
+                <Box p={2} sx={{flex: 2}}>
+                    <Typography p={2} variant="h6" fontWeight="bold" mb={2} sx={{color: "white"}}>
+                        User
+                    </Typography>
+                    <User users={users} isLoading={isLoading} setLoading={setLoading} />
+                </Box>
 
             </Box>
         </Stack>
