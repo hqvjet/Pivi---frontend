@@ -39,6 +39,9 @@ export default function ChatField(props) {
             <TextField id="chat" label="Chat" variant="filled" maxRows={3} multiline={true} fullWidth
                        onKeyDown={comment}/>
             <Stack direction="column" sx={{color: 'white'}}>
+                {props.comments?.length === 0 && (
+                    <Typography variant='h6' sx={{color: 'gray'}} p={2}>This video has no comment</Typography>
+                )}
                 {props.comments.map((item, idx) => (
                     <Stack key={idx} direction='column' p={2}>
                         <Stack direction='row' gap={2} display='flex' alignItems='center'>

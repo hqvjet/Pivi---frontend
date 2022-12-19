@@ -1,52 +1,65 @@
 import {Box, Stack, Typography} from "@mui/material";
-import SideBar from "./SideBar";
-import {adminCategories} from "../../utils/constants";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import React from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Chart from "./Chart";
 import PieChart from "./PieChart";
+import {getAllUser} from "../../api/admin/user";
+import {getAllVideo} from "../../api/public/Video";
 
 export default function DashBoard() {
-
-    const [selectedCategories, setSelectedCategories] = useState(adminCategories[0].name)
 
     const statisticStyles = {
         display: 'flex',
         alignItems: 'center',
-        flexWrap: 'wrap',
         flexDirection: 'column',
         border: '1px solid red',
         padding: '50px 70px',
         borderRadius: '10px',
-        marginLeft: '40px'
     }
+    const [users,setUsers] = useState([])
+    const [videos, setVideos] = useState([])
+    const [sumOfWatchs, setSumOfWatchs] = useState(0)
+    const [interact, setInteract] = useState({like: 0, dislike: 0})
+
+    useEffect(() => {
+        getAllUser()
+            .then(r => {
+                setUsers(r.data.users)
+            })
+        getAllVideo()
+            .then(r => {
+                setVideos(r.data.data)
+                let sum = 0, like = 0, dislike = 0
+                for(let i = 0; i < r.data.data.length; ++i) {
+                    sum += r.data.data[i].watch
+                    like += r.data.data[i].like
+                    dislike += r.data.data[i]?.dislike
+                }
+                setSumOfWatchs(sum)
+                setInteract({like, dislike})
+            })
+    }, [])
 
     return (
         <Stack sx={{flexDirection: {xs: "column", md: "row"}}}>
-            <Box sx={{height: {sx: "auto", md: "92vh"}, borderRight: "1px solid #3d3d3d", px: {sx: 0, md: 2}}}>
-                <SideBar categories={adminCategories}
-                         selectedCategory={selectedCategories}
-                         setSelectedCategory={setSelectedCategories}
-                />
-            </Box>
             <Box>
 
-                <Box p={2} sx={{overflowY: "auto", flex: 2}}>
+                <Box p={2} sx={{flex: 2}}>
                     <Typography variant="h6" fontWeight="bold" mb={2} sx={{color: "white"}}>
                         Hi, Welcome back
                     </Typography>
                     <Box sx={{
                         display: 'flex',
-                        flexDirection: 'row'
-                    }}>
+                        flexDirection: 'row',
+                        justifyContent: 'space-evenly'
+                    }} width='97vw'>
                         <Box sx={statisticStyles}>
                             <AccountCircleIcon color='primary' fontSize='large' sx={{
                                 textAlign: 'center'
                             }}/>
 
                             <Typography fontWeight='bold' color='primary' textAlign='center' marginTop={8}>
-                                {2000}
+                                {users?.length}
                             </Typography>
 
                             <Typography color='primary' textAlign='center'>
@@ -54,19 +67,6 @@ export default function DashBoard() {
                             </Typography>
 
                         </Box>
-                        <Box sx={statisticStyles}>
-                            <AccountCircleIcon color='primary' fontSize='large' sx={{
-                                textAlign: 'center'
-                            }}/>
-
-                            <Typography fontWeight='bold' color='primary' textAlign='center' marginTop={8}>
-                                {2000}
-                            </Typography>
-
-                            <Typography color='primary' textAlign='center'>
-                                User count
-                            </Typography>
-                        </Box>
 
                         <Box sx={statisticStyles}>
                             <AccountCircleIcon color='primary' fontSize='large' sx={{
@@ -74,11 +74,11 @@ export default function DashBoard() {
                             }}/>
 
                             <Typography fontWeight='bold' color='primary' textAlign='center' marginTop={8}>
-                                {2000}
+                                {videos?.length}
                             </Typography>
 
                             <Typography color='primary' textAlign='center'>
-                                User count
+                                Video count
                             </Typography>
                         </Box>
 
@@ -88,27 +88,21 @@ export default function DashBoard() {
                             }}/>
 
                             <Typography fontWeight='bold' color='primary' textAlign='center' marginTop={8}>
-                                {2000}
+                                {sumOfWatchs}
                             </Typography>
 
                             <Typography color='primary' textAlign='center'>
-                                User count
+                                Total view
                             </Typography>
                         </Box>
                     </Box>
                 </Box>
-                <Stack direction='row' p={2}>
+                <Stack direction='row' justifyContent='center'>
                     <Box>
-                        <Typography p={2} variant="h6" fontWeight="bold" mb={2} sx={{color: "white"}}>
-                            Weekly
+                        <Typography p={2} variant="h6" fontWeight="bold" mb={2} sx={{color: "white"}} textAlign='center'>
+                            Pie Chart
                         </Typography>
-                        <Chart/>
-                    </Box>
-                    <Box>
-                        <Typography p={2} variant="h6" fontWeight="bold" mb={2} sx={{color: "white"}}>
-                            Currently
-                        </Typography>
-                        <PieChart/>
+                        <PieChart interact={interact}/>
                     </Box>
                 </Stack>
 

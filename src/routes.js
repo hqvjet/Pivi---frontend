@@ -5,8 +5,6 @@ import SignIn from "./components/Signin";
 import SignUp from "./components/Signup";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import DashBoard from "./components/admin/DashBoard";
-import Report from "./components/admin/Report";
-import Video from './components/admin/Video'
 
 export default function Router() {
 
@@ -29,8 +27,6 @@ export default function Router() {
                             <Route path='/sign-in' element={<SignIn/>}/>
                             <Route path='/sign-up' element={<SignUp/>}/>
                             <Route path='/1423asqwf3' element={<DashBoard/>}/>
-                            <Route path='/1423asqwf3/user' element={<Report/>}/>
-                            <Route path='/1423asqwf3/video' element={<Video/>}/>
                         </Routes>
                     </ThemeProvider>
                 </Box>

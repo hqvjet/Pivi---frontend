@@ -8,6 +8,10 @@ export const likeVideo = async id => {
     return await VideoConfig.post(`/like/${id}`)
 }
 
+export const dislikeVideo = async id => {
+    return await VideoConfig.post(`/dislike/${id}`)
+}
+
 export const commentOnVideo = async data => {
     return await VideoConfig.post('/comment', data)
 }

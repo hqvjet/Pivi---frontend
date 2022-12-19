@@ -21,3 +21,11 @@ export const VideoConfig = axios.create({
 export const PUBLIC_VIDEO = axios.create({
     baseURL: '/api/v1/videos'
 })
+
+//ADMIN
+export const ADMIN = axios.create({
+    baseURL: '/api/v1/admin',
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem('PiviUser') !== null ? JSON.parse(localStorage.getItem('PiviUser')).access : ''}`
+    }
+})

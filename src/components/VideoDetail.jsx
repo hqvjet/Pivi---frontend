@@ -6,13 +6,14 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import UpdateIcon from '@mui/icons-material/Update';
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 
 import {Videos, Loader} from "./index";
 import {Fragment} from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import ChatField from "./ChatField";
 import {getAllVideo, getVideoInformation} from "../api/public/Video";
-import {deleteVideo, likeVideo, updateVideo} from "../api/user/Video";
+import {deleteVideo, dislikeVideo, likeVideo, updateVideo} from "../api/user/Video";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 
@@ -61,8 +62,24 @@ const VideoDetail = () => {
                 setOpen(true)
             })
             .catch(err => {
-                if(!user)
-                    window.location.href='/sign-in'
+                if (!user)
+                    window.location.href = '/sign-in'
+                else {
+                    setAlert(err.response.data.message)
+                    setOpen(true)
+                }
+            })
+    }
+
+    const dislike = () => {
+        dislikeVideo(id)
+            .then(r => {
+                setAlert(r.data.message)
+                setOpen(true)
+            })
+            .catch(err => {
+                if (!user)
+                    window.location.href = '/sign-in'
                 else {
                     setAlert(err.response.data.message)
                     setOpen(true)
@@ -192,7 +209,8 @@ const VideoDetail = () => {
                             width: "100%",
                             top: "86px",
                             borderStyle: 'none none solid none',
-                            borderColor: 'white'
+                            borderColor: 'white',
+                            borderWidth: '1px'
                         }}>
                             <Snackbar
                                 open={open}
@@ -213,8 +231,12 @@ const VideoDetail = () => {
                             </Typography>
                             <Stack direction="row" justifyContent="space-between" sx={{color: "#fff"}} py={1}
                                    px={2}>
-                                <Typography variant={{sm: "subtitle1", md: 'h6'}} color="#fff">
-                                    {videoDetail.owner}
+                                <Typography variant={{sm: "subtitle1", md: 'h6'}} color="#fff" sx={{
+                                    backgroundColor: 'rgba(79, 79, 79, 0.5)',
+                                    borderRadius: '10px',
+                                    padding: '5px'
+                                }}>
+                                    <b>{videoDetail.owner}</b>
                                     <CheckCircleIcon sx={{fontSize: "12px", color: "gray", ml: "5px"}}/>
                                 </Typography>
                                 <Stack direction="row" gap="20px" alignItems="center">
@@ -226,6 +248,15 @@ const VideoDetail = () => {
                                             }
                                         }}
                                         onClick={like}
+                                    />
+                                    <HeartBrokenIcon
+                                        sx={{
+                                            color: heartColor,
+                                            '&:hover': {
+                                                cursor: 'pointer'
+                                            }
+                                        }}
+                                        onClick={dislike}
                                     />
                                     {videoDetail?.owner === user?.username && (
                                         <UpdateIcon
@@ -258,8 +289,18 @@ const VideoDetail = () => {
                                     </Typography>
                                 </Stack>
                             </Stack>
+                            <Box flex={1} sx={{
+                                backgroundColor: 'rgba(79, 79, 79, 0.5)',
+                                borderRadius: '10px',
+                            }}
+                            margin={2}
+                            >
+                                <Typography
+                                    sx={{color: 'white', padding: '10px 20px'}}>{videoDetail?.description}</Typography>
+                            </Box>
                         </Box>
-                        <Box flex={1} marginTop={10}>
+
+                        <Box flex={1} marginTop={2}>
                             <ChatField comments={comment} setAlert={setAlert} setOpen={setOpen}/>
                         </Box>
                     </Box>
