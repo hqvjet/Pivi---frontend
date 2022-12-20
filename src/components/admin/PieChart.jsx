@@ -14,14 +14,12 @@ export default function PieChart(props) {
             {
                 data: [props.interact.like, props.interact.dislike],
                 backgroundColor: [
-                    'rgb(106, 198, 57)',
-                    'rgb(165, 165, 165)',
-                    'rgb(165, 50, 32)',
+                    'rgb(19, 117, 170)',
+                    'rgb(181, 30, 30)',
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
+                    'gray',
+                    'gray',
                 ],
                 borderWidth: 1,
             },
