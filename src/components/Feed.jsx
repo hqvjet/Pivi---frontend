@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {Box, Stack, Typography} from "@mui/material";
 
 import {Videos, Sidebar} from "./index";
@@ -13,6 +13,11 @@ const Feed = () => {
     const [upload, setUpload] = useState(false);
     const [search, setSearch] = useState(true);
     const [storage, setStorage] = useState(false);
+
+    useLayoutEffect(() => {
+        if(JSON.parse(localStorage.getItem('PiviUser'))?.role === 'admin')
+            window.location.href = '/1423asqwf3'
+    }, [])
 
     useEffect(() => {
         setVideos(null);

@@ -83,5 +83,5 @@ export const convertDateToDay = date => {
         return `${sub} day${sub !== 1 ? 's' : ''} ago`
     }
     else
-        return '0 day ago'
+        return 'today'
 }

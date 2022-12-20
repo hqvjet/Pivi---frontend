@@ -54,15 +54,21 @@ export default function Upload() {
     const handleSubmit = e => {
         e.preventDefault()
         const data = new FormData(e.currentTarget)
-        data.append('video', video)
-        data.append('thumbnail', thumbnail)
+        if(data.get('agreed') !== null) {
+            data.append('video', video)
+            data.append('thumbnail', thumbnail)
 
-        uploadVideo(data)
-            .then(r => {
-                setAlert(r.data.message)
-                setOpen(true)
-            })
-            .catch(err => console.log(err.response.data))
+            uploadVideo(data)
+                .then(r => {
+                    setAlert(r.data.message)
+                    setOpen(true)
+                })
+                .catch(err => console.log(err.response.data))
+        }
+        else {
+            setAlert('You Must Agree Our Term And Policy To Upload!')
+            setOpen(true)
+        }
     }
 
     return (
@@ -150,7 +156,7 @@ export default function Upload() {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControlLabel
-                        control={<Checkbox color="secondary" name="saveAddress" value="yes"/>}
+                        control={<Checkbox color="secondary" name="agreed" value="yes" />}
                         label="By Clicking submit you agree with our TERMS AND CONDITIONS"
                     />
                 </Grid>
